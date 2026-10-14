@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unit 2 & 3 文法重點與測驗</title>
+<style>
+:root{--bg:#f3f5fb;--side:#1b1f3b;--side2:#2a3060;--ink:#1f2540;--muted:#6b7194;--card:#fff;--line:#e3e7f5;
+ --u2c:#4f6bff;--u2s:#e9edff;--u3c:#10b981;--u3s:#dcf7ec;--gold:#fbbf24;--ok:#10b981;--okS:#d9f7ea;--bad:#ef4444;--badS:#ffe5e5;--sh:0 8px 28px rgba(31,37,64,.08)}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;line-height:1.7}
+.app{display:grid;grid-template-columns:290px 1fr;min-height:100vh}
+aside{background:linear-gradient(180deg,var(--side),#12152b);color:#dfe3ff;padding:20px 14px;position:sticky;top:0;height:100vh;overflow-y:auto}
+.logo{padding:6px 8px 16px;border-bottom:1px solid rgba(255,255,255,.12);margin-bottom:12px}
+.logo b{display:block;font-size:20px;color:#fff;letter-spacing:.5px}
+.logo small{opacity:.7;font-size:12.5px}
+.grp{margin:16px 8px 6px;font-size:12px;font-weight:800;letter-spacing:1px;text-transform:uppercase;opacity:.65}
+.grp.g2{color:#9fb0ff;opacity:1}.grp.g3{color:#6ee7b7;opacity:1}
+.si{display:flex;align-items:center;gap:10px;width:100%;text-align:left;font:inherit;font-size:14.5px;color:#cfd5ff;background:transparent;border:none;border-radius:12px;padding:8px 10px;cursor:pointer}
+.si:hover{background:rgba(255,255,255,.08)}
+.si.on{background:#fff;color:var(--ink);font-weight:700}
+.si .dot{flex:none;width:12px;height:12px;border-radius:50%;border:2px solid rgba(255,255,255,.45)}
+.si.on .dot{border-color:#99a3d6}
+.si.done .dot{background:#fb923c;border-color:#fb923c}
+.si.perfect .dot{background:var(--gold);border-color:var(--gold)}
+.si .t{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.si em{font-style:normal;font-size:12px;opacity:.8}
+.si .cnt{background:var(--bad);color:#fff;border-radius:999px;padding:0 8px;font-size:12px;font-weight:700}
+#scorebar{margin-top:16px;padding:12px;border-radius:14px;background:rgba(255,255,255,.07);font-size:13.5px;display:flex;flex-direction:column;gap:4px}
+#scorebar b{color:#fff}
+.legend{margin:10px 6px 0;font-size:12px;opacity:.7}
+.legend i{display:inline-block;width:9px;height:9px;border-radius:50%;margin:0 3px 0 8px}
+#main{padding:22px clamp(14px,3vw,40px) 70px;max-width:1000px;width:100%}
+.topbar{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+#menuBtn{display:none;font:inherit;font-weight:700;border:none;background:var(--side);color:#fff;border-radius:12px;padding:8px 14px;cursor:pointer}
+.prog{flex:1;height:12px;border-radius:99px;background:#dde2f5;overflow:hidden}
+.prog>i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--u2c),var(--u3c));border-radius:99px;transition:width .4s}
+#progTxt{font-size:13.5px;font-weight:700;color:var(--muted);white-space:nowrap}
+.page{display:none}.page.on{display:block;animation:fade .25s}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1}}
+.card{background:var(--card);border-radius:22px;box-shadow:var(--sh);padding:22px 24px;margin:18px 0;border-top:6px solid var(--line)}
+.card.u2{border-top-color:var(--u2c)}.card.u3{border-top-color:var(--u3c)}
+.card h2{margin:0 0 10px;font-size:21px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.card h3{margin:16px 0 6px;font-size:16.5px;color:var(--muted)}
+.badge{display:inline-flex;align-items:center;justify-content:center;min-width:34px;height:34px;padding:0 10px;border-radius:12px;font-weight:800;background:var(--line);font-size:14.5px}
+.u2 .badge{background:var(--u2c);color:#fff}.u3 .badge{background:var(--u3c);color:#fff}
+.unit-title{font-size:23px;font-weight:800;margin:26px 0 0;padding:16px 22px;border-radius:20px;color:#fff;box-shadow:var(--sh)}
+.unit-title.a{background:linear-gradient(120deg,#4f6bff,#7c5cff)}
+.unit-title.b{background:linear-gradient(120deg,#10b981,#06b6d4)}
+.en{font-style:normal;font-weight:600;color:#3949d6;background:#eef0ff;padding:0 5px;border-radius:6px}
+.u3 .en{color:#047857;background:#e3f8ef}
+.ex{margin:2px 0 8px 18px;font-size:15px}
+.ex .zh{color:#555;font-size:14px;margin-left:6px}
+table{border-collapse:separate;border-spacing:0;width:100%;font-size:15px;margin:8px 0;border:1px solid var(--line);border-radius:14px;overflow:hidden}
+th,td{border-bottom:1px solid var(--line);border-right:1px solid var(--line);padding:8px 12px;text-align:left;vertical-align:top}
+tr:last-child th,tr:last-child td{border-bottom:none}
+th:last-child,td:last-child{border-right:none}
+th{background:#f4f6ff}
+.u3 th{background:#effaf5}
+.tablewrap{overflow-x:auto}
+.tip{border-radius:14px;background:#fff8dc;padding:10px 14px;margin:12px 0;font-size:15px;border:1px solid #f6e3a0}
+.warn{background:#ffecec;border-color:#ffc9c9}
+.no{color:var(--bad);font-weight:700}.yes{color:#059669;font-weight:700}
+.pill{display:inline-block;padding:0 9px;border-radius:999px;background:#eceffd;margin:2px 3px;font-size:13.5px;font-weight:700}
+.flow{display:flex;flex-wrap:wrap;gap:8px;align-items:stretch;margin:12px 0}
+.flow>div{flex:1 1 180px;border-radius:14px;padding:10px 12px;background:#f4f6ff;font-size:15px}
+.u3 .flow>div,.flow>div{border:1px solid var(--line)}
+.flow>div b{display:block;color:var(--u2c)}
+.u3 .flow>div b{color:var(--u3c)}
+.flow>i{align-self:center;font-style:normal;font-weight:800;font-size:20px;color:var(--muted)}
+.read{background:#f7f8ff;border-left:6px solid var(--u3c);border-radius:12px;padding:12px 16px;margin:8px 0 14px;font-size:16px}
+.inv{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 14px}
+.inv span{border-radius:999px;padding:2px 12px;background:#eef0ff;font-size:14.5px;font-weight:600;color:#3949d6}
+.ins{font-size:14.5px;color:var(--muted);margin:0 0 12px}
+.q ol{list-style:none;counter-reset:q;margin:6px 0;padding:0}
+.q li{counter-increment:q;position:relative;padding:12px 4px 12px 46px;border-bottom:1px dashed var(--line);font-size:17px}
+.q li:last-child{border-bottom:none}
+.q li::before{content:counter(q);position:absolute;left:4px;top:13px;width:30px;height:30px;border-radius:50%;background:#eef0ff;color:#3949d6;font-weight:800;font-size:14px;display:flex;align-items:center;justify-content:center}
+.u3.q li::before{background:#e3f8ef;color:#047857}
+.q p{margin:8px 0;font-size:17px}
+.q hr{border:none;border-top:2px dashed var(--line);margin:14px 0}
+.num{font-size:11.5px;font-weight:800;background:var(--u2c);color:#fff;border-radius:7px;padding:0 5px;margin:0 3px 0 5px;vertical-align:super}
+.u3 .num{background:var(--u3c)}
+select,input[type=text]{font:inherit;font-size:16px;border:none;border-bottom:3px solid #b8bfe0;border-radius:10px;padding:3px 8px;background:#f1f3ff;color:var(--ink);margin:0 3px;max-width:100%}
+input[type=text]{text-align:center}
+select:focus,input:focus{outline:none;border-bottom-color:var(--u2c);background:#e8ecff}
+select:disabled,input:disabled{opacity:1;color:var(--ink)}
+.ok{background:var(--okS)!important;border-bottom-color:var(--ok)!important}
+.bad{background:var(--badS)!important;border-bottom-color:var(--bad)!important}
+.xp{margin:8px 0 2px;padding:8px 12px;border-radius:12px;font-size:14.5px;line-height:1.6;border-left:6px solid}
+.xp.okx{background:var(--okS);border-color:var(--ok)}
+.xp.badx{background:var(--badS);border-color:var(--bad)}
+.why{margin-top:2px;color:#3b3f57}
+.bar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:16px}
+.btn{font:inherit;font-weight:700;border:none;border-radius:14px;padding:9px 20px;background:var(--u2c);color:#fff;cursor:pointer;box-shadow:0 4px 12px rgba(79,107,255,.3)}
+.u3 .btn{background:var(--u3c);box-shadow:0 4px 12px rgba(16,185,129,.3)}
+.btn:hover{filter:brightness(1.07)}
+.btn:disabled{opacity:.45;cursor:default;box-shadow:none}
+.btn.ghost{background:#eef0fb;color:var(--ink);box-shadow:none}
+.res{font-weight:800;font-size:17px}
+.pn{display:flex;justify-content:space-between;gap:10px;margin-top:20px;padding-top:14px;border-top:1px solid var(--line)}
+.tick{display:flex;align-items:center;gap:10px;margin:10px 0;font-size:17px}
+.tick input{width:22px;height:22px;accent-color:var(--u3c)}
+.rv{border-radius:18px;padding:14px 18px;margin:14px 0;background:#fff;box-shadow:var(--sh)}
+.rv .rvh{font-size:13px;font-weight:700;color:var(--muted);margin-bottom:4px}
+.rv .rvq{font-size:17px}
+.rv u{text-decoration:none;border-bottom:3px solid var(--gold);padding:0 2px}
+.rv details{margin-top:8px;font-size:14.5px}
+.rv summary{cursor:pointer;font-weight:700;color:var(--u2c)}
+.chips span{display:inline-block;margin:3px;padding:1px 12px;border-radius:999px;background:#eef0ff;color:#3949d6;font-size:14px;font-weight:600}
+.empty{text-align:center;padding:34px 10px;font-size:18px}
+@media(max-width:860px){
+ .app{grid-template-columns:1fr}
+ aside{position:fixed;left:0;top:0;width:290px;z-index:50;transform:translateX(-100%);transition:transform .25s}
+ body.menu aside{transform:none;box-shadow:0 0 0 100vw rgba(0,0,0,.45)}
+ #menuBtn{display:inline-block}
+ .q li{font-size:16px}
+}
+@media print{aside,.topbar,.bar,.pn{display:none}.app{display:block}body{background:#fff}.card{box-shadow:none}.page{display:block!important}#pg-wr{display:none!important}}
+</style>
+</head>
+<body>
+<div class="app">
+<aside id="side"></aside>
+<div id="main">
+  <div class="topbar"><button id="menuBtn">☰ 目錄</button><div class="prog"><i id="progBar"></i></div><span id="progTxt"></span></div>
+  <div id="pages">
+<section class="page on" id="pg-sum">
+
+<div class="unit-title a">Unit 2　冠詞 Articles ＆ 名詞 Nouns</div>
+
+<div class="card u2">
+  <h2><span class="badge">1</span>不定冠詞 a / an</h2>
+  <ul>
+    <li>放在<b>單數可數名詞</b>前面：<span class="en">a pen, an apple</span></li>
+    <li>a / an 看<b>發音</b>，不看字母：子音發音用 a、母音發音用 an。<div class="ex"><span class="en">a university</span>（u 唸 /ju/＝子音）　<span class="en">an hour</span>（h 不發音＝母音）</div></li>
+    <li>什麼時候用？
+      <div class="ex">① 說<b>不特定</b>的人事物：<span class="en">There's a man at the door.</span><span class="zh">門口有一個男人。</span></div>
+      <div class="ex">② 說<b>職業</b>：<span class="en">She's a teacher.</span><span class="zh">她是老師。</span></div>
+    </li>
+  </ul>
+</div>
+
+<div class="card u2">
+  <h2><span class="badge">2</span>定冠詞 the：什麼時候要加？</h2>
+  <p>the 可以放在<b>不可數名詞</b>、<b>單數／複數可數名詞</b>前：<span class="en">the milk, the pen, the pens</span></p>
+  <h3>✅ 要用 the</h3>
+  <div class="tablewrap"><table>
+    <tr><th>規則</th><th>例句</th></tr>
+    <tr><td>特定的、獨一無二的</td><td><span class="en">The man at the door is my uncle. / The sun rises in the east.</span></td></tr>
+    <tr><td>海、洋、河、沙漠</td><td><span class="en">the Mediterranean, the Atlantic, the Amazon, the Sahara</span></td></tr>
+    <tr><td>群島、山脈、<b>複數／縮寫</b>國名</td><td><span class="en">the Canary Islands, the Himalayas, the USA</span></td></tr>
+    <tr><td>姓氏（指全家人）</td><td><span class="en">the Smiths</span>（史密斯一家）</td></tr>
+    <tr><td>民族（指全體國民）</td><td><span class="en">the Greeks</span>　<span class="pill">but</span> <span class="en">Fiona is Italian.</span>（指個人不加）</td></tr>
+    <tr><td>play ＋ 樂器</td><td><span class="en">He plays the piano.</span></td></tr>
+    <tr><td>旅館、電影院、報紙</td><td><span class="en">the Hilton Hotel, the Rex Cinema, the Times</span></td></tr>
+    <tr><td>方位</td><td><span class="en">in the east</span></td></tr>
+    <tr><td>最高級</td><td><span class="en">Tom is the tallest boy in this class.</span></td></tr>
+  </table></div>
+  <h3>❌ 不加 the（零冠詞 –）</h3>
+  <div class="tablewrap"><table>
+    <tr><th>規則</th><th>例句</th></tr>
+    <tr><td>人名、城市、島、湖、單數國家、街道、洲、國籍</td><td><span class="en">That's Maria. She comes from Spain.</span></td></tr>
+    <tr><td>學科、運動</td><td><span class="en">History is interesting. We love football.</span></td></tr>
+    <tr><td><b>泛指</b>的不可數／複數名詞</td><td><span class="en">I like coffee. Cats like milk.</span></td></tr>
+    <tr><td>三餐</td><td><span class="en">We have lunch at 1:30.</span></td></tr>
+    <tr><td>hospital, home, school, church, bed, work, prison（用在本來的功能）</td><td><span class="en">The boys are at school.</span><br><span class="pill">but</span> <span class="en">The boys visited their uncle at the hospital.</span></td></tr>
+  </table></div>
+  <div class="tip">💡 速記：<b>河、海、洋、沙漠、山脈、群島、方位、最高級 → the</b>；<b>人名、城市、湖、單座山、單數國名、洲、街道、學科、運動、三餐 → 不加</b>。</div>
+</div>
+
+<div class="card u2">
+  <h2><span class="badge">3</span>名詞：可數 ＆ 不可數</h2>
+  <h3>可數名詞變複數</h3>
+  <div class="tablewrap"><table>
+    <tr><th>規則</th><th>例字</th></tr>
+    <tr><td>一般 ＋s</td><td><span class="en">pen → pens</span></td></tr>
+    <tr><td>字尾 s, x, ch, sh ＋es</td><td><span class="en">box → boxes, watch → watches, brush → brushes, glass → glasses</span></td></tr>
+    <tr><td>子音 ＋ o → ＋es</td><td><span class="en">tomato → tomatoes</span>　<span class="pill">but</span> <span class="en">piano → pianos, radio → radios</span></td></tr>
+    <tr><td>子音 ＋ y → 去 y 加 ies</td><td><span class="en">baby → babies</span>　<span class="pill">but</span> 母音＋y 直接加 s：<span class="en">toy → toys</span></td></tr>
+    <tr><td>f / fe → ves</td><td><span class="en">knife → knives, leaf → leaves</span>　<span class="pill">but</span> <span class="en">roof → roofs</span></td></tr>
+  </table></div>
+  <h3>不規則複數</h3>
+  <div class="tablewrap"><table><tr>
+    <td><span class="en">man → men<br>woman → women<br>child → children<br>foot → feet<br>tooth → teeth<br>goose → geese</span></td>
+    <td><span class="en">mouse → mice<br>person → people<br>sheep → sheep<br>fish → fish<br>deer → deer</span>（單複數同形）</td></tr></table></div>
+  <h3>不可數名詞</h3>
+  <ul>
+    <li>不能數，<b>只有單數</b>，前面<b>不能加 a / an 或數字</b>：<span class="en">milk, water, butter, wood, glass（玻璃）, money, time</span></li>
+    <li>要說數量，用<b>量詞 ＋ of</b>：<span class="en">a carton of milk, a loaf / slice of bread</span>
+      <div class="ex">量詞：<span class="en">bottle, piece, loaf, slice, carton, cup, glass, packet, kilo, litre, box, bar, bowl</span></div></li>
+  </ul>
+</div>
+
+<div class="unit-title b">Unit 3　Some / Any / No / Every ＆ 數量詞</div>
+
+<div class="card u3">
+  <h2><span class="badge">0</span>先學會兩個分類（超重要！）</h2>
+  <p>Unit 3 的字選錯，幾乎都是因為沒先看清楚這兩件事：<b>① 名詞是哪一種？ ② 句子是哪一種？</b></p>
+  <h3>① 名詞三種長相</h3>
+  <div class="tablewrap"><table>
+    <tr><th>種類</th><th>怎麼判斷</th><th>例子</th></tr>
+    <tr><td>單數可數</td><td>前面能加 a / an</td><td><span class="en">a pen, an apple, a student</span></td></tr>
+    <tr><td>複數可數</td><td>有 s，能放 two、three</td><td><span class="en">pens, apples, students</span></td></tr>
+    <tr><td>不可數</td><td>不能加 s、不能數 two</td><td><span class="en">water, milk, sugar, money, time, homework</span></td></tr>
+  </table></div>
+  <div class="tip">💡 偷懶測試：「<b>two ＋ 這個字</b>」聽起來對嗎？<span class="en">two apples</span> 對 → 可數；<span class="en">two waters</span> 怪怪的 → 不可數。</div>
+  <h3>② 句子四種心情</h3>
+  <p>😀 肯定句　🚫 否定句（有 not / n't）　❓ 疑問句　🎁 邀請／客氣請求</p>
+</div>
+
+<div class="card u3">
+  <h2><span class="badge">1</span>some / any / no：「有」或「沒有」</h2>
+  <p>這三個字後面接<b>不可數名詞</b>或<b>複數名詞</b>（<span class="en">some milk, some books</span>；<span class="no">✗ some book</span>）。</p>
+  <div class="tablewrap"><table>
+    <tr><th>句子心情</th><th>用哪個字</th><th>例句</th></tr>
+    <tr><td>😀 肯定句</td><td><b>some</b></td><td><span class="en">I have some apples.</span></td></tr>
+    <tr><td>🚫 否定句</td><td><b>any</b>（not ＋ any）</td><td><span class="en">I don't have any apples.</span></td></tr>
+    <tr><td>❓ 疑問句</td><td><b>any</b></td><td><span class="en">Do you have any apples?</span></td></tr>
+    <tr><td>🎁 邀請／請求</td><td><b>some</b></td><td><span class="en">Would you like some cake? / Can I have some water?</span></td></tr>
+    <tr><td>😀 句子是肯定，意思卻是「沒有」</td><td><b>no</b></td><td><span class="en">I have no apples.</span>（＝ I don't have any apples.）</td></tr>
+  </table></div>
+  <div class="tip">💡 口訣：<b>肯定 some，否定問句 any，no 自己就是「不」。</b></div>
+  <div class="tip warn">⚠️ <b>no ＝ not any</b>，兩個「不」不能疊在一起：<span class="no">✗ I don't have no apples.</span>　<span class="yes">✓ I don't have any apples. / I have no apples.</span></div>
+  <p>some / any 後面的名詞可以省略（當代名詞）：<span class="en">Is there any juice? No, there isn't any.</span></p>
+</div>
+
+<div class="card u3">
+  <h2><span class="badge">2</span>every：「每一個」</h2>
+  <ul>
+    <li>every 後面接<b>單數名詞</b>，動詞也用<b>單數</b>。</li>
+    <li class="en" style="list-style:none">Every student has a bag.</li>
+  </ul>
+  <div class="tablewrap"><table>
+    <tr><td class="no">✗ Every students have a bag.</td><td class="yes">✓ Every student <b>has</b> a bag.</td></tr>
+  </table></div>
+  <div class="tip">💡 把 every 想成「<b>一個一個</b>地看」：每次只看一個學生，所以名詞沒有 s、動詞要加 s（has / likes）。</div>
+  <p>常見搭配：<span class="en">every day, every morning, every Monday, every child</span></p>
+</div>
+
+<div class="card u3">
+  <h2><span class="badge">3</span>複合字：someone、anything、nowhere…</h2>
+  <p>公式：<b>some / any / no / every ＋ one（人）／ body（人）／ thing（東西）／ where（地方）</b></p>
+  <div class="tablewrap"><table>
+    <tr><th></th><th>＋ one / body（人）</th><th>＋ thing（東西）</th><th>＋ where（地方）</th></tr>
+    <tr><th>some</th><td>someone / somebody</td><td>something</td><td>somewhere</td></tr>
+    <tr><th>any</th><td>anyone / anybody</td><td>anything</td><td>anywhere</td></tr>
+    <tr><th>no</th><td>no one / nobody</td><td>nothing</td><td>nowhere</td></tr>
+    <tr><th>every</th><td>everyone / everybody</td><td>everything</td><td>everywhere</td></tr>
+  </table></div>
+  <ul>
+    <li><b>用法和 some / any / no / every 一模一樣</b>：肯定句 some 系列、否定／疑問句 any 系列、no 系列自己就是否定。
+      <div class="ex"><span class="en">I want something to eat.</span>　<span class="en">I can't find my keys anywhere.</span>　<span class="en">Is there anyone at home?</span></div></li>
+    <li><b>後面不接名詞</b>（它們已經包含「人／東西／地方」了）：<span class="no">✗ something food</span>　<span class="yes">✓ something to eat</span></li>
+    <li><b>動詞永遠用單數</b>：<span class="en">Everyone is here. Nothing is in the box.</span></li>
+  </ul>
+  <div class="tip warn">⚠️ nothing / nobody / nowhere 本身就是否定：<span class="no">✗ I don't have nothing.</span>　<span class="yes">✓ I have nothing. / I don't have anything.</span></div>
+</div>
+
+<div class="card u3">
+  <h2><span class="badge">4</span>much / many / a lot of / a little / a few：「多」與「少」</h2>
+  <div class="flow">
+    <div><b>Step 1</b>這個名詞<b>數得出來</b>嗎？（能放 two？）</div><i>→</i>
+    <div><b>Step 2</b>要說「<b>很多</b>」還是「<b>一點點</b>」？</div><i>→</i>
+    <div><b>Step 3</b>看句子是<b>肯定</b>還是<b>問句／否定</b></div>
+  </div>
+  <div class="tablewrap"><table>
+    <tr><th></th><th>數得出來（複數可數）<br>chairs, eggs, books</th><th>數不出來（不可數）<br>water, sugar, money</th></tr>
+    <tr><th>很多（問句／否定句）</th><td><b>many</b><br><span class="en">Are there many chairs? There aren't many chairs.</span></td><td><b>much</b><br><span class="en">Is there much sugar? There isn't much sugar.</span></td></tr>
+    <tr><th>很多（肯定句）</th><td colspan="2"><b>a lot of</b>（可數、不可數都能用）<br><span class="en">There are a lot of chairs. There's a lot of sugar.</span></td></tr>
+    <tr><th>一些、一點點（肯定句）</th><td><b>a few</b><br><span class="en">There are a few chairs.</span></td><td><b>a little</b><br><span class="en">There's a little sugar.</span></td></tr>
+  </table></div>
+  <div class="tip">💡 口訣：<b>數得出來 → many / a few；數不出來 → much / a little；a lot of 兩邊都可以。</b></div>
+  <div class="tip warn">⚠️ much / many 平常不放在肯定句。<span class="no">✗ I have much homework.</span>　<span class="yes">✓ I have a lot of homework.</span></div>
+  <p>後面的名詞也可以省略（當代名詞）：<span class="en">How much money have you got? I haven't got much. / Are there many eggs? No, only a few.</span><br>口語可用 <b>lots of</b>（代名詞：<b>lots</b>、<b>a lot</b>）。</p>
+</div>
+
+<div class="card u3">
+  <h2><span class="badge">5</span>How much? / How many?</h2>
+  <div class="tablewrap"><table>
+    <tr><th>問句</th><th>問什麼</th><th>例句</th></tr>
+    <tr><td><b>How many</b> ＋ 複數可數名詞</td><td>問「<b>幾個</b>」</td><td><span class="en">How many books have we got?</span></td></tr>
+    <tr><td><b>How much</b> ＋ 不可數名詞</td><td>問「<b>多少量</b>」</td><td><span class="en">How much milk is there in the fridge?</span></td></tr>
+    <tr><td><b>How much is</b> ...</td><td>問「<b>價錢</b>」</td><td><span class="en">How much is this shirt?</span></td></tr>
+  </table></div>
+</div>
+
+<div class="card u3">
+  <h2>🧭 解題三步驟（做 Unit 3 題目時照著走）</h2>
+  <div class="flow">
+    <div><b>① 看名詞</b>單數？複數？不可數？</div><i>→</i>
+    <div><b>② 看句型</b>😀肯定／🚫否定／❓問句／🎁邀請</div><i>→</i>
+    <div><b>③ 配字</b>回到上面的表格選字</div>
+  </div>
+  <h3>🚨 5 大地雷</h3>
+  <ul>
+    <li><span class="no">✗ There isn't no milk.</span> → <span class="yes">✓ There isn't any milk.</span>（not 和 no 不能疊）</li>
+    <li><span class="no">✗ Every students have…</span> → <span class="yes">✓ Every student has…</span></li>
+    <li><span class="no">✗ I have many friends.</span>（肯定句）→ <span class="yes">✓ I have a lot of friends.</span></li>
+    <li><span class="no">✗ Would you like any tea?</span>（邀請）→ <span class="yes">✓ Would you like some tea?</span></li>
+    <li><span class="no">✗ I don't know nothing.</span> → <span class="yes">✓ I don't know anything.</span></li>
+  </ul>
+</div>
+
+<div class="card">
+  <h2>ℹ️ 關於題庫</h2>
+  <p>題目都是依課本題型<b>原創改寫</b>的仿類似題（同一個文法重點、PET 程度）。「Live English Grammar」是 MM Publications 出版的書，我在網路上沒有找到可公開使用的完整題庫，也不適合直接複製原書題目，所以沒有收錄原題。</p>
+</div>
+</section>
+<section class="page" id="pg-wr"></section>
+</div></div></div><script>
+const OPT={'@art':['a','an','the','–'],'@the':['the','–'],'@sa':['some','any','no'],'@mm3':['much','many','a lot of'],'@lf':['a few','a little'],'@hq':['How much','How many','How much is']};
+
+const parts=[
+/* ================= Unit 2 ================= */
+{id:'2-1',unit:2,no:'2-1',title:'a / an / the / – 選擇',topic:'a / an 與 the',ins:'選出正確的冠詞（– 表示不需要冠詞）。注意 a / an 看<b>發音</b>！',kind:'cloze',list:true,lines:[
+`My brother is {@art::an::職業前面用 a/an。engineer 的 e 是母音發音，所以用 an。} engineer.`,
+`There is {@art::a::不特定的單數可數名詞用 a/an。university 的 u 發音是 /ju/（子音），所以用 a。} university near my house.`,
+`We waited for {@art::an::hour 的 h 不發音，開頭是母音發音，所以用 an。} hour.`,
+`Look at {@art::the::太陽只有一個，是獨一無二的東西，所以用 the。} sun! It is red.`,
+`We have {@art::–::三餐（breakfast, lunch, dinner）前面不加冠詞。} breakfast at seven.`,
+`She plays {@art::the::play ＋ 樂器要加 the。} guitar after school.`,
+`My cousin loves {@art::–::運動名稱前面不加 the。} basketball.`,
+`{@art::the::山脈（the Alps）、群島、河流、海洋的名字前面要加 the。} Alps are mountains in Europe.`,
+`Is there {@art::a::不特定的單數可數名詞用 a/an，cinema 是子音開頭，所以用 a。} cinema in your town?`,
+`My new teacher is {@art::–::說某人是哪一國人，國籍直接放在 is 後面，不加冠詞（不能因為 Italian 是 I 開頭就用 an）。} Italian.`]},
+
+{id:'2-2',unit:2,no:'2-2',title:'the 或 – 判斷',topic:'the 或不加',ins:'選 <b>the</b> 或 <b>–</b>。',kind:'cloze',list:true,lines:[
+`Many whales live in {@the::the::海洋的名字（the Pacific Ocean）前面要加 the。} Pacific Ocean.`,
+`{@the::–::城市名稱不加 the。} Paris is a beautiful city.`,
+`My aunt lives on {@the::–::街道名稱不加 the。} Baker Street.`,
+`My uncle works in {@the::the::USA 是縮寫、複數形的國名，要加 the（the United States）。} USA.`,
+`{@the::–::湖的名稱不加 the。} Lake Geneva is very deep.`,
+`We sailed down {@the::the::河流的名字前面要加 the。} Nile.`,
+`Mount Everest is {@the::the::最高級（highest）前面要加 the。} highest mountain in the world.`,
+`{@the::the::姓氏加 s 表示「某某一家人」，前面要加 the。} Browns are our neighbours.`,
+`{@the::–::泛指「所有的貓」，複數名詞前不加 the。} Cats like fish.`,
+`The sun rises in {@the::the::方位（east, west, north, south）前面加 the。} east.`]},
+
+{id:'2-3',unit:2,no:'2-3',title:'短文：地理（the 或 –）',topic:'the 或不加（地理）',ins:'Read the text. Choose <b>the</b> or <b>–</b>.',kind:'cloze',para:true,num:true,lines:[
+`{@the::–::單數國名（Italy）不加 the。} Italy is a country in {@the::–::洲名（Europe）不加 the。} Europe. {@the::the::海洋（Mediterranean Sea）前面要加 the。} Mediterranean Sea is to {@the::the::方位（south）前面加 the。} south, and {@the::the::山脈（the Alps）前面要加 the。} Alps are to {@the::the::方位（north）前面加 the。} north. {@the::the::河流（the Po）前面要加 the。} Po is {@the::the::最高級（longest）前面要加 the。} longest river in Italy. {@the::–::城市名稱（Rome）不加 the。} Rome is the capital city, and many tourists come from {@the::the::USA 是縮寫、複數形的國名，要加 the。} USA.`]},
+
+{id:'2-4',unit:2,no:'2-4',title:'短文：人物（a / an / the / –）',topic:'a / an / the / –',ins:'Read the text. Choose <b>a, an, the</b> or <b>–</b>.',kind:'cloze',para:true,num:true,lines:[
+`{@art::–::人名前面不加冠詞。} Anna is {@art::–::國籍（Spanish）直接放在 is 後面，不加冠詞。} Spanish. She lives in {@art::a::第一次提到、不特定的單數可數名詞，house 是子音發音，用 a。} small house in {@art::–::城市名稱不加冠詞。} Madrid. {@art::the::前面已經提過這間房子，現在指「那一間」特定的房子，用 the。} house has {@art::a::第一次提到、不特定的單數可數名詞，用 a。} garden, and {@art::the::這個花園剛剛提過，是特定的，用 the。} garden is full of flowers. Her father is {@art::an::職業前用 a/an，engineer 是母音發音，用 an。} engineer and her mother is {@art::a::職業前用 a/an，nurse 是子音，用 a。} nurse. On Sundays Anna plays {@art::–::運動名稱不加 the。} tennis with her friends.`]},
+
+{id:'2-5',unit:2,no:'2-5',title:'名詞複數（規則變化）',topic:'名詞複數規則',ins:'寫出括號裡單字的<b>複數形</b>。',kind:'cloze',list:true,lines:[
+`Mum bought two {::watches::字尾 ch 加 es。} (watch) for the twins.`,
+`I have three {::brushes::字尾 sh 加 es。} (brush) in my bag.`,
+`We need some {::tomatoes::子音 ＋ o 結尾的 tomato 加 es。} (tomato) for the salad.`,
+`The school has two {::pianos::piano 是 o 結尾的例外，直接加 s。} (piano).`,
+`Many {::babies::子音 ＋ y 結尾，去 y 加 ies。} (baby) are in the hospital.`,
+`The boy has five {::toys::母音 ＋ y（oy）結尾，直接加 s。} (toy).`,
+`Dad put the {::knives::knife 結尾是 fe，變成 ves。} (knife) on the table.`,
+`The {::leaves::leaf 結尾是 f，變成 ves。} (leaf) are red in autumn.`,
+`Those two {::roofs::roof 是 f 結尾的例外，直接加 s。} (roof) are very old.`,
+`There are four {::boxes::字尾 x 加 es。} (box) in the room.`]},
+
+{id:'2-6',unit:2,no:'2-6',title:'不規則複數 ＆ 不可數名詞',topic:'不規則／不可數名詞',ins:'前 6 題寫出<b>複數形</b>；後 4 題選正確的詞。',kind:'cloze',list:true,lines:[
+`One child, two {::children::child 是不規則名詞，複數是 children。} (child).`,
+`One foot, two {::feet::foot 的複數是 feet（不是 foots）。} (foot).`,
+`One mouse, three {::mice::mouse 的複數是 mice。} (mouse).`,
+`One person, ten {::people::person 的複數是 people。} (person).`,
+`One sheep, ten {::sheep::sheep 單數、複數長得一樣，複數還是 sheep。} (sheep).`,
+`One tooth, thirty-two {::teeth::tooth 的複數是 teeth。} (tooth).`,
+`Can I have {two|a|a loaf of::a loaf of::bread 是不可數名詞，不能加 a 或數字，要用量詞 a loaf of。} bread, please?`,
+`I drink {a|two|a glass of::a glass of::water 是不可數名詞，不能說 a water，要用量詞 a glass of。} water every morning.`,
+`Look at those {geese|gooses::geese::goose 是不規則名詞，複數是 geese。} in the lake!`,
+`We have {a lot of|a|three::a lot of::money 是不可數名詞，不能加 a 或數字，可以用 a lot of。} money.`]},
+
+{id:'2-7',unit:2,no:'2-7',title:'量詞（a bowl of…）',topic:'量詞',ins:'從字庫選一個量詞填入。有些題<b>不只一個答案</b>，寫一個就好。注意<b>單數／複數</b>！',
+ pre:'<div class="inv"><span>bottle</span><span>piece</span><span>loaf</span><span>slice</span><span>carton</span><span>cup</span><span>packet</span><span>bar</span><span>bowl</span><span>glass</span><span>box</span><span>kilo</span><span>litre</span></div>',
+ kind:'cloze',list:true,lines:[
+`☕ two {::cups::tea 是不可數名詞，用 cup 當量詞；two 所以量詞要複數 cups。} of tea`,
+`🍞 a {::loaf/slice/piece::bread 是不可數名詞，可說 a loaf / slice / piece of bread。} of bread`,
+`🧀 three {::slices/pieces::cheese 是不可數名詞；three 所以量詞要複數 slices 或 pieces。} of cheese`,
+`🍫 a {::bar/piece::chocolate 可說 a bar / piece of chocolate。} of chocolate`,
+`🍚 a {::kilo/packet/bag/bowl::rice 是不可數名詞，可說 a kilo / packet / bowl of rice。} of rice`,
+`💧 a {::bottle/glass/litre::water 是不可數名詞，可說 a bottle / glass of water。} of water`,
+`🥛 a {::carton/bottle/glass/litre::milk 是不可數名詞，可說 a carton / bottle / glass of milk。} of milk`,
+`🥣 two {::bowls/packets/boxes::cornflakes 是不可數名詞；two 所以量詞要複數 bowls / packets / boxes。} of cornflakes`,
+`🍲 a {::bowl/cup::soup 是不可數名詞，可說 a bowl / cup of soup。} of soup`,
+`🧃 two {::glasses/cartons/bottles/litres::juice 是不可數名詞；two 所以量詞要複數，glass 加 es 變 glasses。} of juice`]},
+
+{id:'2-8',unit:2,no:'2-8',title:'綜合短文（圈選）',topic:'冠詞綜合',ins:'Read the text and choose the correct word.',kind:'cloze',para:true,num:true,lines:[
+`Ben lives in {the|–::–::城市名稱不加 the。} Leeds. Leeds is {a|the::a::第一次提到、不特定的一個城市，用 a。} big city in {the|–::the::方位（north）前面加 the。} north of England. Ben's school is near {the|–::the::河流（the River Aire）前面要加 the。} River Aire. At school he has {a|–::–::三餐（lunch）前面不加冠詞。} lunch at 12:30. His favourite subject is {the|–::–::學科（Science）前面不加 the。} Science, and he plays {the|–::–::運動（football）前面不加 the。} football on Fridays. His sister plays {the|–::the::play ＋ 樂器（the flute）要加 the。} flute. They have {a|an::an::old 是母音發音開頭，用 an。} old dog. Ben loves {the|–::–::泛指「所有動物」，複數名詞前不加 the。} animals.`]},
+
+/* ================= Unit 3 ================= */
+{id:'3-1',unit:3,no:'3-1',title:'some / any / no',topic:'some / any / no',ins:'先看<b>句子心情</b>（肯定？否定？疑問？邀請？），再選字。',kind:'cloze',list:true,lines:[
+`I haven't got {@sa::any::否定句（haven't = have not）後面用 any；已經有 not，就不能再用 no。} milk.`,
+`Would you like {@sa::some::邀請別人時用 some（希望對方回答 Yes）。} cake?`,
+`There are {@sa::some::肯定句，後面是複數 apples，用 some。} apples on the table.`,
+`Are there {@sa::any::疑問句用 any。} students in the classroom?`,
+`There is {@sa::no::句子是肯定句，但意思是「沒有」（= not any），用 no。} water in the bottle. It's empty.`,
+`Can I have {@sa::some::客氣地請求東西，用 some。} water, please?`,
+`We didn't see {@sa::any::didn't 是否定句，用 any。} animals at the zoo.`,
+`She has {@sa::no::肯定句，意思是「沒有朋友」，用 no（= not any）。} friends in this city, so she feels lonely.`,
+`Is there {@sa::any::疑問句用 any。} butter in the fridge?`,
+`There aren't {@sa::any::aren't 是否定句，用 any。} chairs in the room.`]},
+
+{id:'3-2',unit:3,no:'3-2',title:'every（每一個）',topic:'every',ins:'every ＋ <b>單數名詞</b> ＋ <b>單數動詞</b>。',kind:'cloze',list:true,lines:[
+`Every student {has|have::has::every 後面接單數名詞，動詞也用單數（has）。} a bag.`,
+`{Every|Some|Any::Every::「班上每一個女生」→ every ＋ 單數名詞（girl）。} girl in my class has a pink bag.`,
+`Every {boy|boys::boy::every 後面要接單數名詞，名詞不加 s。} in the team wears a red shirt.`,
+`I walk to school {every|any|some::every::「每天早上」= every morning。} morning.`,
+`{Every|No|Any::Every::「房間裡的每一個人」→ every ＋ 單數名詞（person）。} person in the room was quiet.`,
+`Every day my mother {cooks|cook::cooks::主詞 my mother 是單數，動詞要加 s（cooks）；Every day 只是「每天」。} dinner.`,
+`There are {no|every|any::no::肯定句，意思是「沒有車」，用 no；every 後面不能接複數 cars。} cars in the street. It's empty.`,
+`Mrs Smith knows {every|any|some::every::「每一個學生」→ every ＋ 單數名詞（student）。} student's name.`,
+`Every window in the house {is|are::is::every window 是單數，所以動詞用 is。} open.`,
+`We have a lesson {every|some|any::every::「每個星期一」= every Monday。} Monday.`]},
+
+{id:'3-3',unit:3,no:'3-3',title:'複合字（選擇）',topic:'複合字',ins:'someone、anything、nowhere… 的用法和 some / any / no / every <b>一樣</b>。',kind:'cloze',list:true,lines:[
+`Is there {someone|anyone|no one::anyone::疑問句用 any 系列：anyone。} at the door?`,
+`I'm hungry. I want to eat {something|anything|nothing::something::肯定句、想要東西 → something。}.`,
+`I can't find my phone {somewhere|anywhere|nowhere::anywhere::can't 是否定句，用 any 系列：anywhere。}.`,
+`{Everyone|No one|Anyone::Everyone::「每一個人都喜歡披薩」→ everyone。} in my class likes pizza.`,
+`There's {nobody|anybody|somebody::nobody::肯定句，意思是「沒有人在家」→ nobody（= not anybody）。} at home. The house is empty.`,
+`Would you like {something|anything|nothing::something::邀請別人 → some 系列：something。} to drink?`,
+`{Everything|Anything|Something::Everything::「店裡所有的東西」→ everything；動詞 is 用單數。} in the shop is cheap today.`,
+`He didn't say {nothing|anything|something::anything::didn't 已經是否定，用 anything；nothing 本身也是否定，不能雙重否定。}.`,
+`Let's go {somewhere|anywhere|everywhere::somewhere::提議「去某個地方」→ somewhere。} quiet to read.`,
+`Tom has a secret. He doesn't tell {someone|anyone|everyone::anyone::doesn't 是否定句，用 anyone。}.`]},
+
+{id:'3-4',unit:3,no:'3-4',title:'複合字（對話填空）',topic:'複合字',ins:'用 some / any / no / every 的複合字完成對話（someone, anything, nowhere…）。',
+ pre:'<div class="inv"><span>someone / somebody</span><span>something</span><span>somewhere</span><span>anyone / anybody</span><span>anything</span><span>anywhere</span><span>no one / nobody</span><span>nothing</span><span>nowhere</span><span>everyone / everybody</span><span>everything</span><span>everywhere</span></div>',
+ kind:'cloze',para:true,num:true,lines:[
+`<b>Lily:</b> I can't find my pencil case {::anywhere::can't 是否定句，用 any 系列：anywhere（任何地方）。}.`,
+`<b>Ben:</b> Is it {::somewhere::猜測「在某個地方」，用 somewhere。} in your bag?`,
+`<b>Lily:</b> No, there's {::nothing::肯定句，意思是「什麼都沒有」→ nothing（= not anything）。} in my bag except books.`,
+`---`,
+`<b>Waiter:</b> Would you like {::something::邀請 → some 系列：something。} to drink?`,
+`<b>Tom:</b> No, thanks. I don't want {::anything::don't 是否定句 → anything。}.`,
+`<b>Waiter:</b> Is {::everything::問「所有東西」都好嗎 → everything。} OK with your pizza?`,
+`<b>Tom:</b> Yes, it's great!`,
+`---`,
+`<b>Mum:</b> Is there {::anyone/anybody::疑問句用 any 系列：anyone 或 anybody。} at the door?`,
+`<b>Kid:</b> No, there's {::no one/nobody::肯定句，意思是「沒有人」→ no one 或 nobody。} there.`,
+`<b>Mum:</b> That's strange. I heard {::someone/somebody::肯定句 → someone 或 somebody。}.`,
+`<b>Kid:</b> Don't worry. {::Everyone/Everybody::「大家」都在家 → everyone 或 everybody。} is at home.`]},
+
+{id:'3-5',unit:3,no:'3-5',title:'much / many / a lot of',topic:'much / many / a lot of',ins:'<b>數得出來</b>用 many、<b>數不出來</b>用 much；<b>肯定句</b>用 a lot of。',kind:'cloze',list:true,lines:[
+`How {much|many::much::sugar 是不可數名詞，問「多少量」用 How much。} sugar do you need?`,
+`How {much|many::many::eggs 是複數可數名詞，問「多少個」用 How many。} eggs are there in the box?`,
+`There aren't {much|many::many::chairs 數得出來，否定句用 many。} chairs in the room.`,
+`There isn't {much|many::much::milk 數不出來，否定句用 much。} milk in the fridge.`,
+`There's {a lot of|much::a lot of::肯定句要用 a lot of（much 不放在肯定句）。} water in the lake.`,
+`We've got {a lot of|much::a lot of::肯定句用 a lot of；homework 不可數，much 不適合放肯定句。} homework today.`,
+`Are there {much|many::many::疑問句，pandas 數得出來 → many。} pandas in this zoo?`,
+`I haven't got {much|many::much::money 數不出來，否定句用 much。} money.`,
+`We have {a lot of|much::a lot of::肯定句用 a lot of。} snow in winter.`,
+`How {much|many::many::students 數得出來，問人數用 How many。} students are there in your school?`]},
+
+{id:'3-6',unit:3,no:'3-6',title:'a few / a little',topic:'a few / a little',ins:'「有一些、一點點」：<b>數得出來</b>用 a few，<b>數不出來</b>用 a little。',kind:'cloze',list:true,lines:[
+`I have {@lf::a few::friends 是複數可數名詞，用 a few。} friends in Taipei.`,
+`There is {@lf::a little::milk 是不可數名詞，用 a little。} milk in my cup.`,
+`She needs {@lf::a little::help 是不可數名詞，用 a little。} help with her homework.`,
+`We have {@lf::a few::eggs 數得出來，用 a few。} eggs.`,
+`We have {@lf::a little::time 是不可數名詞，用 a little。} time before the class.`,
+`There are {@lf::a few::students 數得出來，用 a few。} students in the library.`,
+`He has {@lf::a few::CDs 數得出來，用 a few。} CDs.`,
+`Can I have {@lf::a little::sugar 是不可數名詞，用 a little。} sugar in my tea?`,
+`I bought {@lf::a few::apples 數得出來，用 a few。} apples at the market.`,
+`There's {@lf::a little::juice 是不可數名詞，用 a little。} juice in the bottle.`]},
+
+{id:'3-7',unit:3,no:'3-7',title:'How much / How many / How much is',topic:'how much / how many',ins:'問<b>量</b>用 How much、問<b>個數</b>用 How many、問<b>價錢</b>用 How much is。',kind:'cloze',list:true,lines:[
+`{@hq::How much::water 是不可數名詞，問量用 How much。} water is there in the bottle?`,
+`{@hq::How many::books 是複數可數名詞，問數目用 How many。} books have you got?`,
+`{@hq::How much is::問價錢用 How much is。} this T-shirt?`,
+`{@hq::How many::students 數得出來，問人數用 How many。} students are there in your class?`,
+`{@hq::How much::time 是不可數名詞，用 How much。} time do you need?`,
+`{@hq::How many::brothers and sisters 數得出來，用 How many。} brothers and sisters have you got?`,
+`{@hq::How much::homework 是不可數名詞，用 How much。} homework have you got today?`,
+`{@hq::How much is::問價錢用 How much is。} that pencil case?`,
+`{@hq::How much::cheese 是不可數名詞，用 How much。} cheese do you want on your pizza?`,
+`{@hq::How many::eggs 數得出來，用 How many。} eggs do you need for the cake?`]},
+
+{id:'3-8',unit:3,no:'3-8',title:'閱讀：勾選正確的敘述',topic:'閱讀理解',ins:'Read the text. Which facts are <b>true</b>? Tick the correct boxes.',kind:'tick',
+ pre:'<div class="read"><b>A lot of</b> people think that the giant panda is a lazy animal, but it isn\'t. Pandas live in the mountains of China and they spend about twelve hours <b>every</b> day eating! Pandas don\'t eat <b>anything</b> except bamboo, and they need <b>a lot of</b> it. They also drink <b>some</b> water from rivers. Sadly, there aren\'t <b>many</b> pandas in the wild – only about 1,800.</div>',
+ items:[
+ ['Pandas live in China.',true,'文章說 Pandas live in the mountains of China，所以是正確的敘述。'],
+ ['Pandas eat only bamboo.',true,'don\'t eat anything except bamboo 的意思就是「除了竹子，什麼都不吃」，所以是正確的敘述。'],
+ ['Pandas eat for only a few hours every day.',false,'文章說 about twelve hours every day，是「很多小時」，不是 a few hours。'],
+ ['Pandas don\'t drink any water.',false,'文章說 They also drink some water，所以有喝水。'],
+ ['There are many pandas in the wild.',false,'文章說 there aren\'t many pandas in the wild，野外的熊貓不多。'],
+ ['A panda needs a lot of bamboo.',true,'文章說 they need a lot of it（it = bamboo），所以是正確的敘述。']]},
+
+{id:'3-9',unit:3,no:'3-9',title:'綜合短文（圈選）',topic:'綜合短文',ins:'Read the text and choose the correct word.',kind:'cloze',para:true,num:true,lines:[
+`There are only {a few|a little::a few::people 是複數可數名詞，用 a few。} people in the café. Mr and Mrs Green are sitting at {a|the::a::第一次提到的桌子，不特定，用 a。} table near the window. There is {an|a::a::blue 是子音發音開頭，用 a。} blue vase with {a|some::some::flowers 是複數，不能加 a，要用 some。} flowers on the table. They aren't eating {any|no::any::aren't 已經是否定，用 any，不能再用 no。} food. Mr Green is drinking {a|some::some::orange juice 是不可數名詞，不能加 a，用 some。} orange juice. Mrs Green has got {a|some::a::glass 是單數可數名詞，用 a。} glass of lemonade, but she doesn't like it. She wants {some|much::some::肯定句用 some；much 不放在肯定句。} water, but there isn't {much|many::much::water 是不可數名詞，否定句用 much。} in the bottle. {Everybody|Every::Everybody::everybody 是一個字，後面不接名詞；every 後面一定要接單數名詞。} in the café is quiet.`]},
+
+{id:'3-10',unit:3,no:'3-10',title:'綜合挑戰',topic:'綜合挑戰',ins:'Unit 3 全部文法混在一起，用「解題三步驟」做做看！',kind:'cloze',list:true,lines:[
+`Would you like {some|any|every::some::邀請別人用 some。} tea?`,
+`There isn't {much|many|a few::much::traffic 是不可數名詞，否定句用 much。} traffic today.`,
+`{Everyone|Every|Some::Everyone::everyone 是一個字，後面不接名詞；every 一定要接名詞。} in my family likes pizza.`,
+`How {much|many|some::many::apples 數得出來，問數目用 How many。} apples are there?`,
+`I have {a little|a few|much::a few::friends 是複數可數名詞，用 a few。} friends at school.`,
+`She doesn't have {no|any|some::any::doesn't 已經是否定，用 any。} brothers.`,
+`There's {nothing|anything|something::nothing::肯定句，意思是「什麼都沒有」→ nothing。} in the box. It's empty.`,
+`Every student {have|has|are::has::every ＋ 單數名詞 ＋ 單數動詞（has）。} a library card.`,
+`We've got {a lot of|many|any::a lot of::work 是不可數名詞，many 不行；肯定句也不用 any，用 a lot of。} work to do today.`,
+`We looked for the cat but we couldn't find it {anywhere|somewhere|nowhere::anywhere::couldn't 是否定，用 anywhere；nowhere 本身也是否定，不能雙重否定。}.`]}
+];
+const RE=/\{([^{}]*?)::([^{}]*?)(?:::([^{}]*?))?\}/g;
+const $=(s,r=document)=>r.querySelector(s);
+const norm=s=>String(s).trim().toLowerCase().replace(/[-‐‑‒–—]+/g,'–').replace(/\s+/g,' ');
+const state={};
+let wrong={};
+try{wrong=JSON.parse(localStorage.getItem('g23wrong')||'{}')||{};}catch(e){wrong={};}
+const save=()=>{try{localStorage.setItem('g23wrong',JSON.stringify(wrong));}catch(e){}};
+const shuffle=a=>{for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;};
+const key=(p,i)=>p.id+'#'+i;
+
+function sentenceAt(s,off){
+  let st=0;const re=/[.?!]\s/g;let m;
+  while((m=re.exec(s))&&m.index<off){st=m.index+2;}
+  const rest=s.slice(off);const m2=rest.match(/[.?!](\s|$)/);
+  const en=m2?off+m2.index+1:s.length;
+  return s.slice(st,en);
+}
+function ctl(b,attr){
+  if(b.opts)return `<select ${attr}><option value="">▾</option>${b.opts.map(o=>`<option value="${o}">${o}</option>`).join('')}</select>`;
+  const w=Math.max(6,Math.max(...b.ans.map(a=>a.length))+2);
+  return `<input type="text" size="${w}" ${attr} autocomplete="off" autocapitalize="none" spellcheck="false">`;
+}
+
+function buildPart(p){
+  p.blanks=[];
+  const card=document.createElement('div');card.className='card q u'+p.unit;card.id='part-'+p.id;
+  let h=`<h2><span class="badge">${p.no}</span>${p.title}</h2><p class="ins">${p.ins||''}</p>${p.pre||''}`;
+  if(p.kind==='tick'){
+    p.items.forEach((it,i)=>{
+      p.blanks.push({tick:true,ans:[it[1]],exp:it[2],ctx:it[0],line:i});
+      h+=`<div><label class="tick"><input type="checkbox" data-i="${i}"><span>${i+1}. ${it[0]}</span></label><div class="exs" data-l="${i}"></div></div>`;
+    });
+  }else{
+    let n=0;
+    const conv=(line,li)=>line.replace(RE,(m,l,r,e,off,str)=>{
+      let opts=null;
+      if(l!==''){opts=OPT[l]?OPT[l].slice():l.split('|');if(!l.startsWith('@'))shuffle(opts);}
+      const b={ans:r.split('/'),exp:e||'',opts,ctx:sentenceAt(str,off),raw:m,line:p.list?li:'all',n:++n};
+      p.blanks.push(b);
+      const num=p.num?`<span class="num">${b.n}</span>`:'';
+      return num+ctl(b,`data-i="${p.blanks.length-1}"`);
+    });
+    if(p.list)h+='<ol>'+p.lines.map((l,li)=>`<li>${conv(l,li)}<div class="exs" data-l="${li}"></div></li>`).join('')+'</ol>';
+    else{h+=p.lines.map(l=>l==='---'?'<hr>':`<p>${conv(l,0)}</p>`).join('');h+='<div class="exs" data-l="all"></div>';}
+  }
+  h+=`<div class="bar"><button class="btn" data-act="check" data-p="${p.id}">✔ 核對這 ${p.blanks.length} 題</button><button class="btn ghost" data-act="reset" data-p="${p.id}">↺ 重做</button><span class="res" id="res-${p.id}"></span></div>`;
+  const idx=parts.indexOf(p);
+  const prev=idx>0?parts[idx-1].id:'sum';
+  const next=idx<parts.length-1?parts[idx+1].id:'wr';
+  const nextTxt=idx<parts.length-1?'下一回 →':'去看錯題本 →';
+  h+=`<div class="pn"><button class="btn ghost" data-go="${prev}">← 上一回</button><button class="btn ghost" data-go="${next}">${nextTxt}</button></div>`;
+  card.innerHTML=h;
+  const sec=document.createElement('section');sec.className='page';sec.id='pg-'+p.id;sec.appendChild(card);return sec;
+}
+
+const valOf=(el,b)=>b.tick?el.checked:el.value;
+const judge=(b,v)=>b.tick?v===b.ans[0]:b.ans.some(a=>norm(a)===norm(v));
+function ansTxt(b){return b.tick?(b.ans[0]?'這是正確的敘述 ✔':'這不是正確的敘述 ✘'):b.ans.join(' / ');}
+
+function checkPart(p){
+  const root=document.getElementById('part-'+p.id);
+  root.querySelectorAll('.exs').forEach(x=>x.innerHTML='');
+  let sc=0;
+  p.blanks.forEach((b,i)=>{
+    const el=root.querySelector(`[data-i="${i}"]`);
+    const v=valOf(el,b);const ok=judge(b,v);
+    el.classList.remove('ok','bad');el.classList.add(ok?'ok':'bad');el.disabled=true;
+    if(ok){sc++;delete wrong[key(p,i)];}else wrong[key(p,i)]=b.tick?(v?'有勾選':'沒勾選'):(v||'（沒作答）');
+    const box=root.querySelector(`.exs[data-l="${b.line}"]`);
+    const d=document.createElement('div');d.className='xp '+(ok?'okx':'badx');
+    const yours=b.tick?(v?'你有勾選':'你沒有勾選'):(v||'（沒作答）');
+    d.innerHTML=(ok?'✅ ':'❌ ')+(p.list||b.tick?'':`<b>(${b.n})</b> `)+(ok?`<b>${ansTxt(b)}</b>`:`你的答案：<b>${yours}</b>　正確：<b>${ansTxt(b)}</b>`)+(b.exp?`<div class="why">📖 ${b.exp}</div>`:'');
+    box.appendChild(d);
+  });
+  const tot=p.blanks.length;state[p.id]={sc,tot};
+  $('#res-'+p.id).textContent=`得分 ${sc} / ${tot}　`+(sc===tot?'🎉 全對！':sc>=tot*0.8?'👍 很棒，看看錯的解析':'💪 看解析後可以按「重做」');
+  root.querySelector('[data-act="check"]').disabled=true;
+  save();tally();
+}
+function resetPart(p){
+  const root=document.getElementById('part-'+p.id);
+  root.querySelectorAll('[data-i]').forEach(el=>{el.classList.remove('ok','bad');el.disabled=false;if(el.type==='checkbox')el.checked=false;else el.value='';});
+  root.querySelectorAll('.exs').forEach(x=>x.innerHTML='');
+  $('#res-'+p.id).textContent='';
+  root.querySelector('[data-act="check"]').disabled=false;
+  delete state[p.id];tally();
+}
+
+function findKey(k){const [id,i]=k.split('#');const p=parts.find(x=>x.id===id);return p&&p.blanks[+i]?{p,b:p.blanks[+i],i:+i}:null;}
+function validKeys(){return Object.keys(wrong).filter(k=>findKey(k));}
+
+function tally(){
+  const row=u=>{const ps=parts.filter(p=>p.unit===u);let sc=0,tt=0,d=0;ps.forEach(p=>{const s=state[p.id];if(s){sc+=s.sc;tt+=s.tot;d++;}});
+    return `<span>Unit ${u}　已核對 <b>${d}/${ps.length}</b> 回　得分 <b>${tt?sc+' / '+tt:'–'}</b></span>`;};
+  const n=validKeys().length;
+  $('#scorebar').innerHTML=row(2)+row(3);
+  $('#wrongBadge').textContent=n;$('#wrongBadge').style.display=n?'inline':'none';
+  let done=0;
+  parts.forEach(p=>{const s=state[p.id];const el=$('#si-'+p.id);if(!el)return;
+    el.classList.toggle('done',!!s);el.classList.toggle('perfect',!!s&&s.sc===s.tot);
+    el.querySelector('em').textContent=s?s.sc+'/'+s.tot:'';if(s)done++;});
+  $('#progBar').style.width=(done/parts.length*100)+'%';
+  $('#progTxt').textContent=`完成 ${done} / ${parts.length} 回`;
+}
+
+function ctxHtml(b){
+  if(b.tick)return `<label class="tick"><input type="checkbox" data-rk><span>${b.ctx}</span></label>`;
+  let done=false;
+  return b.ctx.replace(RE,(m,l,r)=>{
+    if(!done&&m===b.raw){done=true;return ctl(b,'data-rk');}
+    return `<u>${r.split('/')[0]}</u>`;
+  });
+}
+function renderWrong(){
+  const box=$('#pg-wr');const keys=validKeys();
+  if(!keys.length){box.innerHTML='<div class="card"><div class="empty">🎉 目前沒有錯題！<br><small>去做 Unit 2 / Unit 3 的測驗，答錯的題目會自動收進這裡。</small></div></div>';return;}
+  const topics={};keys.forEach(k=>{const f=findKey(k);topics[f.p.topic]=(topics[f.p.topic]||0)+1;});
+  const chips=Object.entries(topics).sort((a,b)=>b[1]-a[1]).map(([t,n])=>`<span>${t} × ${n}</span>`).join('');
+  let h=`<div class="card"><h2>📕 錯題本：${keys.length} 題待複習</h2><p class="ins">先自己再答一次，按「檢查」；答對的題目就會從錯題本移除。卡住時再展開「看解析」。</p><div class="chips"><b>最需要複習：</b>${chips}</div><div class="bar"><button class="btn ghost" data-act="clearwrong">清空錯題本</button></div></div>`;
+  keys.forEach(k=>{
+    const {p,b}=findKey(k);
+    h+=`<div class="rv" data-k="${k}"><div class="rvh">Unit ${p.unit}　${p.no}　${p.title}　｜　上次你的答案：${wrong[k]}</div>
+      <div class="rvq">${ctxHtml(b)}</div>
+      <div class="bar"><button class="btn" data-act="rcheck" data-k="${k}">檢查</button><span class="res"></span></div>
+      <details><summary>看解析</summary><div class="why">📖 ${b.exp}<br>答案：<b>${ansTxt(b)}</b></div></details></div>`;
+  });
+  box.innerHTML=h;
+}
+function recheck(k){
+  const card=document.querySelector(`.rv[data-k="${k}"]`);const {b}=findKey(k);
+  const el=card.querySelector('[data-rk]');const v=valOf(el,b);const ok=judge(b,v);
+  el.classList.remove('ok','bad');el.classList.add(ok?'ok':'bad');
+  const r=card.querySelector('.res');
+  if(ok){r.textContent='🎉 答對了！已移出錯題本';delete wrong[k];save();tally();card.querySelector('details').open=true;el.disabled=true;card.querySelector('[data-act="rcheck"]').disabled=true;}
+  else{r.textContent='❌ 再想想，可以看解析';}
+}
+
+function buildSide(){
+  const item=p=>`<button class="si" data-go="${p.id}" id="si-${p.id}"><span class="dot"></span><span class="t">${p.no}　${p.title}</span><em></em></button>`;
+  $('#side').innerHTML=`<div class="logo"><b>📘 Unit 2 & 3</b><small>文法重點 ＋ 測驗（PET Level）</small></div>
+  <button class="si" data-go="sum"><span class="t">📒　文法重點</span></button>
+  <div class="grp g2">Unit 2　冠詞 ＆ 名詞</div>${parts.filter(p=>p.unit===2).map(item).join('')}
+  <div class="grp g3">Unit 3　數量詞</div>${parts.filter(p=>p.unit===3).map(item).join('')}
+  <div class="grp">複習</div>
+  <button class="si" data-go="wr"><span class="t">📕　錯題本</span><span class="cnt" id="wrongBadge">0</span></button>
+  <div id="scorebar"></div>
+  <div class="legend"><i style="background:#fb923c"></i>已核對<i style="background:#fbbf24"></i>全對</div>`;
+}
+buildSide();
+parts.forEach(p=>{$('#pages').appendChild(buildPart(p));});
+function showPage(id){
+  document.querySelectorAll('.page').forEach(pg=>pg.classList.toggle('on',pg.id==='pg-'+id));
+  document.querySelectorAll('.si').forEach(s=>s.classList.toggle('on',s.dataset.go===id));
+  if(id==='wr')renderWrong();
+  document.body.classList.remove('menu');
+  window.scrollTo(0,0);
+}
+document.addEventListener('click',e=>{
+  const g=e.target.closest('[data-go]');if(g){showPage(g.dataset.go);return;}
+  if(e.target.id==='menuBtn'){document.body.classList.toggle('menu');return;}
+  const b=e.target.closest('[data-act]');if(!b)return;
+  const a=b.dataset.act;
+  if(a==='check')checkPart(parts.find(p=>p.id===b.dataset.p));
+  else if(a==='reset')resetPart(parts.find(p=>p.id===b.dataset.p));
+  else if(a==='rcheck')recheck(b.dataset.k);
+  else if(a==='clearwrong'){if(confirm('確定要清空錯題本嗎？')){wrong={};save();tally();renderWrong();}}
+});
+tally();
+showPage('sum');
+</script></body></html>
